@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../services/usuario.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cad-usuario',
@@ -9,7 +10,11 @@ import { UsuarioService } from '../../../services/usuario.service';
 })
 export class CadUsuarioComponent {
 
-  constructor( private usuarioService:UsuarioService){
+  constructor( 
+    private usuarioService:UsuarioService,
+    private snackbar:MatSnackBar
+  ){
+
    
   }
 
@@ -37,11 +42,30 @@ onSalvar(){
     //Irá inserir no banco de dados um usuário
      this.usuarioService.addUsuario(info).subscribe({
       next:(resposta)=>{
-        console.log(resposta)
+        console.log(resposta);
+        this.snackbar.open(
+          "Usuário adicionado com sucesso!",
+          "OK",
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'end',
+            duration:3000
+          }
+        )   
+        this.onCancelar();
         
       },
       error:(erro)=>{
-        console.log(erro)
+        console.log(erro);
+        this.snackbar.open(
+          "Oh não! aconteceu algo de errado..",
+          "OK",
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'end',
+            duration:3000
+          }
+        )
       }
      })
   }else{
