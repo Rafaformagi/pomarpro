@@ -6,6 +6,10 @@ body {
     color: #333;
 }
 
+.menu *{
+    z-index: 9;
+}
+
 header {
     background-color: #ff8800;
     padding: 20px;
@@ -33,8 +37,9 @@ nav ul li a {
     font-weight: bold;
 }
 
-nav ul li a:hover {
+li:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 main {
@@ -55,3 +60,5 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+

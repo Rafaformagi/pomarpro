@@ -1,31 +1,36 @@
-import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from '../../../services/usuario.service';
+import { ColheitaService } from '../services/colheita.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-cad-usuario',
-  templateUrl: './cad-usuario.component.html',
-  styleUrl: './cad-usuario.component.scss'
+  selector: 'app-colheita',
+  templateUrl: './colheita.component.html',
+  styleUrl: './colheita.component.scss'
 })
-export class CadUsuarioComponent {
+export class ColheitaComponent {
+
 
   constructor( 
-    private usuarioService:UsuarioService,
+    private colheitaService:ColheitaService,
     private snackbar:MatSnackBar
-  ) {
-    this.buscaUsuarios()
+  ) { 
+    this.buscaColheitas()
   }
+
 
   //Inicializa o formulário
   formulario:FormGroup = new FormGroup({
     id: new FormControl(null),
-    nome: new FormControl('',Validators.required),
-    sobrenome: new FormControl('',Validators.required),
-    endereco: new FormControl('',Validators.required),
-    telefone: new FormControl('',Validators.required),
-    email: new FormControl('',Validators.required),
-    login: new FormControl('',Validators.required),
+    quantidade:new FormControl('',Validators.required),
+    dt_colheita:new FormControl('',Validators.required),
+    arvore:new FormControl('',Validators.required),
+    defensivo:new FormControl(''),
+    fertilizante:new FormControl(''),
+    
+
+    
+
   })
   //Métodos dos controles do formulário
 onIncluir(){
@@ -39,11 +44,11 @@ onSalvar(){
   //Verifica se está inserindo ou alterando com base no valor do ID (se for null, está inserindo, senão, alterando)
   if(info.id == null){
     //Irá inserir no banco de dados um usuário
-     this.usuarioService.addUsuario(info).subscribe({
+     this.colheitaService.addColheita(info).subscribe({
       next:(resposta)=>{
         console.log(resposta);
         this.snackbar.open(
-          "Usuário adicionado com sucesso!",
+          "Colheita adicionada com sucesso!",
           "OK",
           {
             verticalPosition: 'top',
@@ -68,7 +73,7 @@ onSalvar(){
       }
      })
   }else{
-    //Irá alterar o usuário de banco de dados
+    //Irá alterar a colheita de banco de dados
 
   }
 }
@@ -78,12 +83,12 @@ onCancelar(){
   this.formulario.disable();
 }
 
-  //Função para buscar as informações e usuários
+  //Função para buscar as informações e colheitas
   
   relatorio:any[] = [];
 
-  buscaUsuarios(){
-    this.usuarioService.getUsuarios().subscribe({
+  buscaColheitas(){
+    this.colheitaService.getColheitas().subscribe({
       next:(resposta)=>{
         console.log(resposta);
         this.relatorio = resposta.body;
@@ -95,4 +100,3 @@ onCancelar(){
   }
 
 }
-

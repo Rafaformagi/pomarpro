@@ -1,0 +1,56 @@
+<app-menu></app-menu>
+<div class="pagina">
+  <header>
+    <h1>Movimentação</h1>
+  </header>
+
+  <form [formGroup]="formulario">
+    <div>
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Movimento</mat-label>
+        <input matInput formControlName="tb_movimentacao_id" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Produto</mat-label>
+        <input matInput formControlName="tb_produtos_id" />
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" color="accent" class="grande">
+      <mat-label>Quantidade</mat-label>
+      <input matInput formControlName="quantidade" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="accent" class="grande">
+        <mat-label>Tipo</mat-label>
+        <input matInput formControlName="tipo" />
+      </mat-form-field>
+
+    <div class="controles">
+        <button mat-raised-button [disabled]="formulario.enabled" (click)="onIncluir()" color="accent">Incluir</button>
+        <button mat-raised-button [disabled]="formulario.invalid" (click)="onSalvar()" color="accent">Salvar</button>
+        <button mat-raised-button [disabled]="formulario.disabled" (click)="onCancelar()" color="accent">Cancelar</button>
+    </div>
+  </form>
+</div>
+ <div class="relatorio">
+    <h2>Movimentos Cadastrados</h2>
+    <table>
+        <tr>
+            <th>Ação</th>
+            <th>Movimento</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Tipo</th>
+        </tr>
+        <tr *ngFor="let movimento of relatorio">
+            <td><button>Excluir</button></td>
+            <td>{{movimento.tb_movimento_id}}</td>
+            <td>{{movimento.tb_produto_id}}</td>
+            <td>{{movimento.quantidade}}</td>   
+            <td>{{movimento.tipo}}</td>        
+        </tr>
+    </table>
+        </div>
+
+
+
+

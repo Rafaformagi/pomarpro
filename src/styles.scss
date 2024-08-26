@@ -107,4 +107,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     position: absolute;
     bottom: 0;
     left: 0;
+    z-index: 1 !important;
+    background-image: url('assets/img/_1a95c2b9-9aa5-4bdb-9ba5-fb48773c334b.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    h1{
+        z-index: 1;
+    }
 }

@@ -1,31 +1,30 @@
-import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from '../../../services/usuario.service';
+import { CadastroService } from '../services/cadastro.service';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-cad-usuario',
-  templateUrl: './cad-usuario.component.html',
-  styleUrl: './cad-usuario.component.scss'
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.component.html',
+  styleUrl: './cadastro.component.scss'
 })
-export class CadUsuarioComponent {
+export class CadastroComponent {
+
 
   constructor( 
-    private usuarioService:UsuarioService,
+    private cadastroService:CadastroService,
     private snackbar:MatSnackBar
-  ) {
-    this.buscaUsuarios()
+  ) { 
+    this.buscaCadastros()
   }
+
 
   //Inicializa o formulário
   formulario:FormGroup = new FormGroup({
     id: new FormControl(null),
-    nome: new FormControl('',Validators.required),
-    sobrenome: new FormControl('',Validators.required),
-    endereco: new FormControl('',Validators.required),
-    telefone: new FormControl('',Validators.required),
-    email: new FormControl('',Validators.required),
-    login: new FormControl('',Validators.required),
+    apelido: new FormControl('',Validators.required),
+    num_linha: new FormControl('',Validators.required),
+    num_coluna: new FormControl('',Validators.required),
   })
   //Métodos dos controles do formulário
 onIncluir(){
@@ -39,11 +38,11 @@ onSalvar(){
   //Verifica se está inserindo ou alterando com base no valor do ID (se for null, está inserindo, senão, alterando)
   if(info.id == null){
     //Irá inserir no banco de dados um usuário
-     this.usuarioService.addUsuario(info).subscribe({
+     this.cadastroService.addCadastro(info).subscribe({
       next:(resposta)=>{
         console.log(resposta);
         this.snackbar.open(
-          "Usuário adicionado com sucesso!",
+          "Cadastro adicionado com sucesso!",
           "OK",
           {
             verticalPosition: 'top',
@@ -82,8 +81,8 @@ onCancelar(){
   
   relatorio:any[] = [];
 
-  buscaUsuarios(){
-    this.usuarioService.getUsuarios().subscribe({
+  buscaCadastros(){
+    this.cadastroService.getCadastros().subscribe({
       next:(resposta)=>{
         console.log(resposta);
         this.relatorio = resposta.body;

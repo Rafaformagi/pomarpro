@@ -1,31 +1,31 @@
-import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from '../../../services/usuario.service';
+import { MovimentoService } from '../services/movimento.service';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-cad-usuario',
-  templateUrl: './cad-usuario.component.html',
-  styleUrl: './cad-usuario.component.scss'
+  selector: 'app-movimento',
+  templateUrl: './movimento.component.html',
+  styleUrl: './movimento.component.scss'
 })
-export class CadUsuarioComponent {
+export class MovimentoComponent {
+
 
   constructor( 
-    private usuarioService:UsuarioService,
+    private movimentoService:MovimentoService,
     private snackbar:MatSnackBar
-  ) {
-    this.buscaUsuarios()
+  ) { 
+    this.buscaMovimentos()
   }
+
 
   //Inicializa o formulário
   formulario:FormGroup = new FormGroup({
     id: new FormControl(null),
-    nome: new FormControl('',Validators.required),
-    sobrenome: new FormControl('',Validators.required),
-    endereco: new FormControl('',Validators.required),
-    telefone: new FormControl('',Validators.required),
-    email: new FormControl('',Validators.required),
-    login: new FormControl('',Validators.required),
+    tb_movimentacao_id: new FormControl('',Validators.required),
+    tb_produtos_id: new FormControl('',Validators.required),
+    quantidade: new FormControl('',Validators.required),
+    tipo: new FormControl('',Validators.required),
   })
   //Métodos dos controles do formulário
 onIncluir(){
@@ -39,11 +39,11 @@ onSalvar(){
   //Verifica se está inserindo ou alterando com base no valor do ID (se for null, está inserindo, senão, alterando)
   if(info.id == null){
     //Irá inserir no banco de dados um usuário
-     this.usuarioService.addUsuario(info).subscribe({
+     this.movimentoService.addMovimento(info).subscribe({
       next:(resposta)=>{
         console.log(resposta);
         this.snackbar.open(
-          "Usuário adicionado com sucesso!",
+          "Movimento adicionado com sucesso!",
           "OK",
           {
             verticalPosition: 'top',
@@ -68,7 +68,7 @@ onSalvar(){
       }
      })
   }else{
-    //Irá alterar o usuário de banco de dados
+    //Irá alterar o movimento de banco de dados
 
   }
 }
@@ -82,8 +82,8 @@ onCancelar(){
   
   relatorio:any[] = [];
 
-  buscaUsuarios(){
-    this.usuarioService.getUsuarios().subscribe({
+  buscaMovimentos(){
+    this.movimentoService.getMovimentos().subscribe({
       next:(resposta)=>{
         console.log(resposta);
         this.relatorio = resposta.body;
@@ -95,4 +95,6 @@ onCancelar(){
   }
 
 }
+
+  
 
