@@ -22,7 +22,6 @@ export class MovimentoComponent {
   //Inicializa o formulário
   formulario:FormGroup = new FormGroup({
     id: new FormControl(null),
-    tb_movimentacao_id: new FormControl('',Validators.required),
     tb_produtos_id: new FormControl('',Validators.required),
     quantidade: new FormControl('',Validators.required),
     tipo: new FormControl('',Validators.required),

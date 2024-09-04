@@ -7,10 +7,6 @@
   <form [formGroup]="formulario">
     <div>
       <mat-form-field appearance="outline" color="accent">
-        <mat-label>Movimento</mat-label>
-        <input matInput formControlName="tb_movimentacao_id" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" color="accent">
         <mat-label>Produto</mat-label>
         <input matInput formControlName="tb_produtos_id" />
       </mat-form-field>
@@ -36,14 +32,12 @@
     <table>
         <tr>
             <th>Ação</th>
-            <th>Movimento</th>
             <th>Produto</th>
             <th>Quantidade</th>
             <th>Tipo</th>
         </tr>
         <tr *ngFor="let movimento of relatorio">
             <td><button>Excluir</button></td>
-            <td>{{movimento.tb_movimento_id}}</td>
             <td>{{movimento.tb_produto_id}}</td>
             <td>{{movimento.quantidade}}</td>   
             <td>{{movimento.tipo}}</td>        

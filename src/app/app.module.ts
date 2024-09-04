@@ -36,7 +36,8 @@ import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/cor
     ProdutoComponent,
     CadastroComponent,
     MovimentoComponent,
-    ColheitaComponent
+    ColheitaComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
