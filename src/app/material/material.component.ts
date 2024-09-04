@@ -1,31 +1,31 @@
-import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from '../../../services/usuario.service';
+import { MaterialService } from '../services/material.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-cad-usuario',
-  templateUrl: './cad-usuario.component.html',
-  styleUrl: './cad-usuario.component.scss'
+  selector: 'app-material',
+  templateUrl: './material.component.html',
+  styleUrl: './material.component.scss'
 })
-export class CadUsuarioComponent {
+export class MaterialComponent {
+
 
   constructor( 
-    private usuarioService:UsuarioService,
+    private materialService:MaterialService,
     private snackbar:MatSnackBar
-  ) {
-    this.buscaUsuarios()
+  ) { 
+    this.buscaMateriais()
   }
+
 
   //Inicializa o formulário
   formulario:FormGroup = new FormGroup({
     id: new FormControl(null),
     nome: new FormControl('',Validators.required),
-    sobrenome: new FormControl('',Validators.required),
-    endereco: new FormControl('',Validators.required),
-    telefone: new FormControl('',Validators.required),
-    email: new FormControl('',Validators.required),
-    login: new FormControl('',Validators.required),
+    valor: new FormControl('',Validators.required),
+    fornecedor: new FormControl('',Validators.required),
+    tipo: new FormControl('',Validators.required)
   })
   //Métodos dos controles do formulário
 onIncluir(){
@@ -39,7 +39,7 @@ onSalvar(){
   //Verifica se está inserindo ou alterando com base no valor do ID (se for null, está inserindo, senão, alterando)
   if(info.id == null){
     //Irá inserir no banco de dados um usuário
-     this.usuarioService.addUsuario(info).subscribe({
+     this.materialService.addMaterial(info).subscribe({
       next:(resposta)=>{
         console.log(resposta);
         this.snackbar.open(
@@ -82,8 +82,8 @@ onCancelar(){
   
   relatorio:any[] = [];
 
-  buscaUsuarios(){
-    this.usuarioService.getUsuarios().subscribe({
+  buscaMateriais(){
+    this.materialService.getMateriais().subscribe({
       next:(resposta)=>{
         console.log(resposta);
         this.relatorio = resposta.body;
